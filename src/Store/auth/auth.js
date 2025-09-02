@@ -24,7 +24,7 @@ export const login = createAsyncThunk(
       navigate("/dashboard/home");
       // const data = await response.json();
 
-      toast.error("Login Successful");
+      toast.success("Login Successful");
       return response?.data;
     } catch (error) {
       if (error.response && error?.response?.data.error) {
