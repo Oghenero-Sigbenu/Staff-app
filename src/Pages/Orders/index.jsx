@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { DashboardLayout } from "../../Components";
 import TopMenuNav from "../../Components/Dashboard/TopNav";
-import { fetchFlightOrders } from "../../Store/api";
 import { RiSearchLine } from "react-icons/ri";
-import { FiFilter, FiDownload, FiEye } from "react-icons/fi";
-import { BsThreeDots } from "react-icons/bs";
-import { AiOutlineEdit } from "react-icons/ai";
-import { MdDeleteOutline } from "react-icons/md";
+import { FiFilter, FiDownload } from "react-icons/fi";
+
 import { IoMdArrowDown } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../Store/Orders/order";
 
 export default function Orders() {
   const [, setError] = useState(false);
@@ -18,7 +16,10 @@ export default function Orders() {
   const [sortOrder, setSortOrder] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.order?.users);
+  const loading = useSelector((state) => state.order?.loading);
+  const error = useSelector((state) => state.order?.error);
   // Sample data - you can replace this with your actual data
   const sampleData = [
     {
@@ -86,6 +87,9 @@ export default function Orders() {
       item.phone.includes(searchTerm)
   );
 
+  useEffect(() => {
+    dispatch(getUsers(currentPage));
+  }, [dispatch]);
   // Sort data
   const sortedData = [...filteredData].sort((a, b) => {
     if (sortOrder === "asc") {
@@ -141,23 +145,6 @@ export default function Orders() {
     );
   };
 
-  const getFlights = async () => {
-    try {
-      setLoading(true);
-      const response = await fetchFlightOrders();
-      console.log(response);
-      if (response) {
-        setReview(response?.data?.data);
-        setLoading(false);
-      }
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    getFlights();
-  }, []);
   useEffect(() => {}, []);
   return (
     <DashboardLayout className="bg-[#f9f9f9] text-center">
@@ -172,7 +159,7 @@ export default function Orders() {
                   Customer Management
                 </h2>
                 <p className="text-sm text-gray-600 mt-1">
-                  Manage and monitor flights
+                  Manage and monitor Users
                 </p>
               </div>
 

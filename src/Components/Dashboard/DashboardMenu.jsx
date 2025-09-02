@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
-import { FiLogOut } from "react-icons/fi";
+import { FiHome, FiLogOut } from "react-icons/fi";
 import { motion } from "framer-motion";
-import { logout } from "../../Store/auth/auth";
+import { logout } from "../../Store/auth/au";
 import { useDispatch } from "react-redux";
 import { RiHome6Line } from "react-icons/ri";
 import { FiShoppingCart, FiUsers } from "react-icons/fi";
@@ -41,10 +41,10 @@ const DashboardMenu = ({ pathname }) => {
       icon: <RiHome6Line className="" />,
     },
     {
-      title: "Users",
+      title: "Hotel Management",
       sub: false,
-      path: "/dashboard/users/view",
-      icon: <FiUsers className="" />,
+      path: "/dashboard/hotels/view",
+      icon: <FiHome className="" />,
     },
     {
       title: "Flight Management",
@@ -60,9 +60,16 @@ const DashboardMenu = ({ pathname }) => {
       icon: <FiShoppingCart className="" />,
     },
     {
-      title: "Package Management",
+      title: "Tour Management",
 
       path: "/dashboard/packages/view",
+      sub: false,
+      icon: <FiShoppingCart className="" />,
+    },
+    {
+      title: "Transfer Management",
+
+      path: "/dashboard/transfers/view",
       sub: false,
       icon: <FiShoppingCart className="" />,
     },

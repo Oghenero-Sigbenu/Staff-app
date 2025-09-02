@@ -6,7 +6,7 @@ import {} from "react-icons/ri";
 import { FiDownload } from "react-icons/fi";
 
 import { IoMdArrowDown } from "react-icons/io";
-import { getFlights } from "../../Store/Orders/order";
+import { getHotels } from "../../Store/Orders/order";
 
 import {
   BiCalendar,
@@ -18,9 +18,9 @@ import {
 } from "react-icons/bi";
 import { FaPlane } from "react-icons/fa6";
 
-export default function Flight() {
+export default function Hotel() {
   const dispatch = useDispatch();
-  const flights = useSelector((state) => state.order?.flights);
+  const hotels = useSelector((state) => state.order?.hotels);
   const loading = useSelector((state) => state.order?.loading);
   const error = useSelector((state) => state.order?.error);
 
@@ -32,9 +32,10 @@ export default function Flight() {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedRows, setExpandedRows] = useState({});
+  console.log(hotels);
 
   // // Filter data based on search term
-  const filteredData = flights?.flights?.filter(
+  const filteredData = hotels?.hotels?.filter(
     (item) =>
       // item?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item?.amount?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -42,7 +43,7 @@ export default function Flight() {
   );
 
   useEffect(() => {
-    dispatch(getFlights(currentPage));
+    dispatch(getHotels(currentPage));
   }, [dispatch]);
 
   const toggleRow = (id) => {
@@ -53,9 +54,9 @@ export default function Flight() {
   };
 
   // Use the flight array length as total for current page
-  const totalItems = flights?.flights?.length || 0;
-  const totalPages = flights?.totalPages || 1;
-  const currentFlightData = flights?.flights || [];
+  const totalItems = hotels?.hotels?.length || 0;
+  const totalPages = hotels?.totalPages || 1;
+  const currentFlightData = hotels?.hotels || [];
 
   // For display - since you're getting server-side paginated data
   const startIndex = (currentPage - 1) * itemsPerPage + 1;
@@ -66,7 +67,7 @@ export default function Flight() {
     setCurrentPage(page);
     setExpandedRows({});
     // Dispatch with new page size
-    dispatch(getFlights(page)); // Close all expanded rows when changing pages
+    dispatch(getHotels(page)); // Close all expanded rows when changing pages
   };
 
   const handleItemsPerPageChange = (newItemsPerPage) => {
@@ -97,68 +98,68 @@ export default function Flight() {
     }
   };
 
-  const formatCurrency = (amount, currency) => {
-    return new Intl.NumberFormat("en-NG", {
-      style: "currency",
-      currency: currency || "NGN",
-    }).format(parseFloat(amount));
-  };
+  // const formatCurrency = (amount, currency) => {
+  //   return new Intl.NumberFormat("en-NG", {
+  //     style: "currency",
+  //     currency: currency || "NGN",
+  //   }).format(parseFloat(amount));
+  // };
 
   // Loading component
-  const LoadingSpinner = () => (
-    <div className="flex items-center justify-center min-h-[400px]">
-      <div className="flex flex-col items-center space-y-4">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-        <p className="text-gray-600">Loading flights...</p>
-      </div>
-    </div>
-  );
+  // const LoadingSpinner = () => (
+  //   <div className="flex items-center justify-center min-h-[400px]">
+  //     <div className="flex flex-col items-center space-y-4">
+  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+  //       <p className="text-gray-600">Loading hotels...</p>
+  //     </div>
+  //   </div>
+  // );
 
-  // Error component
-  const ErrorDisplay = ({ error, onRetry }) => (
-    <div className="flex items-center justify-center min-h-[400px]">
-      <div className="text-center">
-        <div className="text-red-500 mb-4">
-          <svg
-            className="mx-auto h-12 w-12"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">
-          Error loading flights
-        </h3>
-        <p className="text-gray-600 mb-4">{error || "Something went wrong"}</p>
-        <button
-          onClick={onRetry}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-        >
-          Try Again
-        </button>
-      </div>
-    </div>
-  );
+  // // Error component
+  // const ErrorDisplay = ({ error, onRetry }) => (
+  //   <div className="flex items-center justify-center min-h-[400px]">
+  //     <div className="text-center">
+  //       <div className="text-red-500 mb-4">
+  //         <svg
+  //           className="mx-auto h-12 w-12"
+  //           fill="none"
+  //           viewBox="0 0 24 24"
+  //           stroke="currentColor"
+  //         >
+  //           <path
+  //             strokeLinecap="round"
+  //             strokeLinejoin="round"
+  //             strokeWidth={2}
+  //             d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+  //           />
+  //         </svg>
+  //       </div>
+  //       <h3 className="text-lg font-medium text-gray-900 mb-2">
+  //         Error loading hotels
+  //       </h3>
+  //       <p className="text-gray-600 mb-4">{error || "Something went wrong"}</p>
+  //       <button
+  //         onClick={onRetry}
+  //         className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+  //       >
+  //         Try Again
+  //       </button>
+  //     </div>
+  //   </div>
+  // );
   return (
     <DashboardLayout className="bg-[#f9f9f9] text-center">
-      <TopMenuNav TitleHeader="Flights" />
+      <TopMenuNav TitleHeader="hotels" />
       <div className="w-[98%] mx-auto">
         <div className="bg-white mt-[3rem] rounded-xl shadow-2xl  overflow-hidden">
           <div className="p-6 border-b border-gray-200">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">
-                  Flight Management
+                  Hotel Management
                 </h2>
                 <p className="text-sm text-gray-600 mt-1">
-                  Manage and monitor flights
+                  Manage and monitor hotel bookings and reservations
                 </p>
               </div>
 
@@ -169,7 +170,35 @@ export default function Flight() {
                 </button>
               </div>
             </div>
+            <div className="flex flex-col items-center justify-center text-center py-[2rem]">
+              {/* Empty State Illustration */}
+              <div className="w-24 h-24 mb-6 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
+                <svg
+                  className="w-12 h-12 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
+                  />
+                </svg>
+              </div>
 
+              {/* Empty State Content */}
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                {searchTerm !== "All" ? "No results found" : "No hotel yet"}
+              </h3>
+
+              <p className="text-gray-600 mb-6 max-w-md">
+                {searchTerm !== "All"
+                  ? `We couldn't find any hotel matching your search criteria. Try adjusting your filters.`
+                  : "Get started by adding your first hotel to the system."}
+              </p>
+            </div>
             {/* Search and Filter */}
             {/* <div className="flex flex-col sm:flex-row gap-4 mt-6">
               <div className="relative flex-1">
@@ -179,7 +208,7 @@ export default function Flight() {
                 />
                 <input
                   type="text"
-                  placeholder="Search flights..."
+                  placeholder="Search hotels..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
@@ -194,13 +223,13 @@ export default function Flight() {
             </div> */}
           </div>
 
-          <div className="overflow-x-auto">
+          {/* <div className="overflow-x-auto">
             {loading ? (
               <LoadingSpinner />
             ) : error ? (
               <ErrorDisplay
                 error={error}
-                onRetry={() => dispatch(getFlights(currentPage))}
+                onRetry={() => dispatch(gethotels(currentPage))}
               />
             ) : (
               <table className="w-full">
@@ -209,17 +238,17 @@ export default function Flight() {
                     <th className="w-12 px-6 py-3">
                       <input
                         type="checkbox"
-                        // checked={
-                        //   selectedRows.length === paginatedData.length &&
-                        //   paginatedData.length > 0
-                        // }
-                        // onChange={handleSelectAll}
+                        checked={
+                          selectedRows.length === paginatedData.length &&
+                          paginatedData.length > 0
+                        }
+                        onChange={handleSelectAll}
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
                     </th>
                     <th
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700"
-                      // onClick={() => handleSort("name")}
+                      onClick={() => handleSort("name")}
                     >
                       <div className="flex items-center gap-2">
                         User Details
@@ -235,7 +264,7 @@ export default function Flight() {
                     </th>
                     <th
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700"
-                      // onClick={() => handleSort("role")}
+                      onClick={() => handleSort("role")}
                     >
                       <div className="flex items-center gap-2">
                         Ref Number
@@ -251,7 +280,7 @@ export default function Flight() {
                     </th>
                     <th
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700"
-                      // onClick={() => handleSort("status")}
+                      onClick={() => handleSort("status")}
                     >
                       <div className="flex items-center gap-2">
                         Status
@@ -388,8 +417,7 @@ export default function Flight() {
                         {expandedRows[flight.id] && (
                           <tr>
                             <td colSpan="6" className="px-6 py-4 bg-gray-50">
-                              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                {/* Raw Data Section */}
+                              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">                   
                                 <div className="bg-white rounded-lg p-4 border border-gray-200">
                                   <h4 className="text-lg font-semibold text-gray-800 mb-3">
                                     Flight Data Details
@@ -518,24 +546,17 @@ export default function Flight() {
                                   </div>
                                 </div>
 
-                                {/* Locations Dictionary */}
+                             
                                 <div className="bg-white rounded-lg p-4 border border-gray-200">
                                   <h4 className="text-lg font-semibold text-gray-800 mb-3">
                                     Location Dictionary
                                   </h4>
                                   <div className="space-y-2 text-sm">
-                                    {/* {Object.entries(
-                                  flight?.data?.dictionaries?.locations
-                                )?.map(([code, name]) => (
-                                  <div key={code}>
-                                    <span className="font-medium">{code}:</span>{" "}
-                                    {name}
-                                  </div>
-                                ))} */}
+                                
                                   </div>
                                 </div>
 
-                                {/* Warnings Section */}
+                                
                                 {flight?.data?.warnings?.length > 0 && (
                                   <div className="lg:col-span-2 bg-yellow-50 rounded-lg p-4 border border-yellow-200">
                                     <h4 className="text-lg font-semibold text-yellow-800 mb-3">
@@ -563,7 +584,7 @@ export default function Flight() {
                                       className="border border-gray-200 rounded-lg p-4 mb-4"
                                     >
                                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {/* Pricing Details */}
+                                      
                                         <div>
                                           <h5 className="font-medium text-gray-800 mb-2">
                                             Pricing Breakdown
@@ -613,7 +634,7 @@ export default function Flight() {
                                           </div>
                                         </div>
 
-                                        {/* Offer Details */}
+                                      
                                         <div>
                                           <h5 className="font-medium text-gray-800 mb-2">
                                             Offer Details
@@ -666,7 +687,6 @@ export default function Flight() {
                                         </div>
                                       </div>
 
-                                      {/* Traveler Pricing */}
                                       <div className="mt-4">
                                         <h5 className="font-medium text-gray-800 mb-2">
                                           Traveler Pricing
@@ -730,7 +750,7 @@ export default function Flight() {
                                                 </div>
                                               </div>
 
-                                              {/* Fare Details by Segment */}
+                                             
                                               <div className="mt-3">
                                                 <h6 className="font-medium text-gray-700 mb-2">
                                                   Fare Details by Segment
@@ -768,7 +788,7 @@ export default function Flight() {
                                         )}
                                       </div>
 
-                                      {/* Itineraries */}
+                                     
                                       <div className="mt-4">
                                         <h5 className="font-medium text-gray-800 mb-2">
                                           Flight Itineraries
@@ -857,10 +877,10 @@ export default function Flight() {
                 </tbody>
               </table>
             )}
-          </div>
-          <div className="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
+          </div> */}
+          {/* <div className="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
             <div className="flex items-center justify-between">
-              {/* Items per page selector */}
+             
               <div className="flex items-center space-x-2">
                 <span className="text-sm text-gray-700">Show</span>
                 <select
@@ -878,13 +898,13 @@ export default function Flight() {
                 <span className="text-sm text-gray-700">per page</span>
               </div>
 
-              {/* Page info */}
+             
               <div className="text-sm text-gray-700">
                 Showing {startIndex + 1} to {Math.min(endIndex, totalItems)} of{" "}
                 {totalItems} results
               </div>
 
-              {/* Page navigation */}
+           
               <div className="flex items-center space-x-1">
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
@@ -894,20 +914,20 @@ export default function Flight() {
                   Previous
                 </button>
 
-                {/* Page numbers */}
+          
                 <div className="flex space-x-1">
                   {Array.from({ length: totalPages }, (_, index) => {
                     const page = index + 1;
                     const isCurrentPage = page === currentPage;
 
-                    // Show first page, last page, current page, and pages around current
+
                     const shouldShow =
                       page === 1 ||
                       page === totalPages ||
                       (page >= currentPage - 1 && page <= currentPage + 1);
 
                     if (!shouldShow) {
-                      // Show ellipsis for gaps
+                      
                       if (
                         page === currentPage - 2 ||
                         page === currentPage + 2
@@ -944,54 +964,6 @@ export default function Flight() {
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
                   className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer with Pagination */}
-          {/* <div className="px-6 py-4 border-t border-gray-200">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div className="text-sm text-gray-700">
-                Showing {startIndex + 1} to{" "}
-                {Math.min(startIndex + itemsPerPage, sortedData.length)} of{" "}
-                {sortedData.length}
-                results
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))
-                  }
-                  disabled={currentPage === 1}
-                  className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Previous
-                </button>
-
-                {[...Array(totalPages)].map((_, index) => (
-                  <button
-                    key={index + 1}
-                    onClick={() => setCurrentPage(index + 1)}
-                    className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                      currentPage === index + 1
-                        ? "text-white bg-black border border-black"
-                        : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-50"
-                    }`}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
-
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                  }
-                  disabled={currentPage === totalPages}
-                  className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Next
                 </button>

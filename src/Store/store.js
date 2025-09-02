@@ -13,7 +13,7 @@ import {
 } from "redux-persist/es/constants";
 
 // Import reducers
-import authReducer from "./auth/a";
+import authReducer from "./auth/auth";
 import orderReducer from "./Orders/order";
 
 // Redux Persist Config

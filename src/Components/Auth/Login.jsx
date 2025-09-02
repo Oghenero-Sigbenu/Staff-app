@@ -15,6 +15,7 @@ function Login() {
   const submitForm = (userDetail) => {
     dispatch(login({ userDetail, navigate }));
   };
+
   return (
     <div className="w-[438px]  flex flex-col justify-center sm:w-[500px] px-[50px]">
       <div className=" mb-[37px] flex items-center  justify-between ">

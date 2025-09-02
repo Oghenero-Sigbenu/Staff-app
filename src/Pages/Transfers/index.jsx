@@ -1,19 +1,13 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { DashboardLayout } from "../../Components";
 import TopMenuNav from "../../Components/Dashboard/TopNav";
 import { RiSearchLine } from "react-icons/ri";
-import { FiFilter, FiDownload, FiEye } from "react-icons/fi";
-import { BsThreeDots } from "react-icons/bs";
-import { AiOutlineEdit } from "react-icons/ai";
-import { MdDeleteOutline } from "react-icons/md";
+import { FiFilter, FiDownload } from "react-icons/fi";
 import { IoMdArrowDown } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { getTours, getTransfers } from "../../Store/Orders/order";
 
-export default function Users() {
-  const dispatch = useDispatch();
-  const flights = useSelector((state) => state.auth);
-  const [reviews, setReview] = useState(null);
-  const [loading, setLoading] = useState(false);
+export default function Transfers() {
   const [, setError] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRows, setSelectedRows] = useState([]);
@@ -21,7 +15,8 @@ export default function Users() {
   const [sortOrder, setSortOrder] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
+  const dispatch = useDispatch();
+  const transfers = useSelector((state) => state.order?.transfers);
   // Sample data - you can replace this with your actual data
   const sampleData = [
     {
@@ -29,7 +24,7 @@ export default function Users() {
       name: "Ada Tamy",
       email: "ada@gmail.com",
       phone: "08130174027",
-      role: "User",
+      role: "2344567PK",
       status: "Confirmed",
       joinDate: "2024-01-15",
       avatar:
@@ -40,7 +35,7 @@ export default function Users() {
       name: "John Smith",
       email: "john@gmail.com",
       phone: "08130174028",
-      role: "User",
+      role: "2344567PK",
       status: "Confirmed",
       joinDate: "2024-02-20",
       avatar:
@@ -51,7 +46,7 @@ export default function Users() {
       name: "Sarah Johnson",
       email: "sarah@gmail.com",
       phone: "08130174029",
-      role: "User",
+      role: "2344567PK",
       status: "Checked-In",
       joinDate: "2024-01-10",
       avatar:
@@ -62,7 +57,7 @@ export default function Users() {
       name: "Mike Davis",
       email: "mike@gmail.com",
       phone: "08130174030",
-      role: "User",
+      role: "2344567PK",
       status: "Confirmed",
       joinDate: "2024-03-05",
       avatar:
@@ -73,13 +68,17 @@ export default function Users() {
       name: "Emma Wilson",
       email: "emma@gmail.com",
       phone: "08130174031",
-      role: "User",
+      role: "2344567PK",
       status: "Pending",
       joinDate: "2024-03-12",
       avatar:
         "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=40&h=40&fit=crop&crop=face",
     },
   ];
+
+  useEffect(() => {
+    dispatch(getTransfers(currentPage));
+  }, [dispatch]);
 
   // Filter data based on search term
   const filteredData = sampleData.filter(
@@ -146,7 +145,7 @@ export default function Users() {
 
   return (
     <DashboardLayout className="bg-[#f9f9f9] text-center">
-      <TopMenuNav TitleHeader="Flights" />
+      <TopMenuNav TitleHeader="transfers" />
       <div className="w-[98%] mx-auto">
         <div className="bg-white mt-[3rem] rounded-xl shadow-2xl  overflow-hidden">
           {/* Header */}
@@ -154,10 +153,10 @@ export default function Users() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">
-                  User Management
+                  Transfer Management
                 </h2>
                 <p className="text-sm text-gray-600 mt-1">
-                  Manage and monitor users
+                  Manage and monitor transfers
                 </p>
               </div>
 
@@ -197,7 +196,7 @@ export default function Users() {
           </div>
 
           {/* Table */}
-          <div className="overflow-x-auto">
+          {/* <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
@@ -217,7 +216,7 @@ export default function Users() {
                     onClick={() => handleSort("name")}
                   >
                     <div className="flex items-center gap-2">
-                      Name
+                      User Details
                       <IoMdArrowDown
                         size={14}
                         className={`transform transition-transform ${
@@ -233,7 +232,7 @@ export default function Users() {
                     onClick={() => handleSort("role")}
                   >
                     <div className="flex items-center gap-2">
-                      Number
+                      Ref Number
                       <IoMdArrowDown
                         size={14}
                         className={`transform transition-transform ${
@@ -261,7 +260,7 @@ export default function Users() {
                     </div>
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Email
+                    Date
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
@@ -284,27 +283,27 @@ export default function Users() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        {/* <img
-                          src={user.avatar}
-                          alt={user.name}
-                          className="w-10 h-10 rounded-full object-cover"
-                        /> */}
+                    
                         <div>
                           <div className="text-sm font-medium text-gray-900">
                             {user.name}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {user.email}
+                          </div>
+                          <div className="text-xs text-gray-400">
+                            {user.phone}
                           </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-sm text-gray-900">
-                        {user.phone}
-                      </span>
+                      <span className="text-sm text-gray-900">{user.role}</span>
                     </td>
                     <td className="px-6 py-4">{getStatusBadge(user.status)}</td>
                     <td className="px-6 py-4">
                       <span className="text-sm text-gray-900">
-                        {user.email}
+                        {user.joinDate}
                       </span>
                     </td>
                     <td className="px-6 py-4">
@@ -327,10 +326,39 @@ export default function Users() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </div> */}
 
+          <div className="flex flex-col items-center justify-center text-center py-[2rem]">
+            {/* Empty State Illustration */}
+            <div className="w-24 h-24 mb-6 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
+              <svg
+                className="w-12 h-12 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
+                />
+              </svg>
+            </div>
+
+            {/* Empty State Content */}
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              {searchTerm !== "All" ? "No results found" : "No transfers yet"}
+            </h3>
+
+            <p className="text-gray-600 mb-6 max-w-md">
+              {searchTerm !== "All"
+                ? `We couldn't find any transfers matching your search criteria. Try adjusting your filters.`
+                : "Get started by adding your first transfers to the system."}
+            </p>
+          </div>
           {/* Footer with Pagination */}
-          <div className="px-6 py-4 border-t border-gray-200">
+          {/* <div className="px-6 py-4 border-t border-gray-200">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div className="text-sm text-gray-700">
                 Showing {startIndex + 1} to{" "}
@@ -374,7 +402,7 @@ export default function Users() {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </DashboardLayout>
