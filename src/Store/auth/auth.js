@@ -20,7 +20,7 @@ export const login = createAsyncThunk(
         userDetail,
         config
       );
-      console.log(response);
+
       navigate("/dashboard/home");
       // const data = await response.json();
 
@@ -75,7 +75,7 @@ const authSlice = createSlice({
       state.success = true;
       state.isAuthenticated = true;
       state.userToken = action?.payload?.jwt;
-      console.log(action?.payload, 678);
+      state.loading = false;
       // Store user info in localStorage
       if (action.payload) {
         localStorage.setItem("userToken", action?.payload?.jwt);
