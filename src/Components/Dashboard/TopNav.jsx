@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 // import GenerateHeaders from "../../utils/Header";
 import { MdLogout } from "react-icons/md";
 import { FaArrowDown, FaArrowDown91, FaKey, FaUser } from "react-icons/fa6";
-import { BiArrowBack } from "react-icons/bi";
-import profile from "../../Assets/Images/user.svg";
+import { BiArrowBack, BiUserCircle } from "react-icons/bi";
+import profile from "/assets/Images/user.svg";
 import { IoIosArrowDown } from "react-icons/io";
 
 const TopMenuNav = ({ TitleHeader }) => {
@@ -93,11 +93,12 @@ const ProfileImage = ({ loading }) => (
         disabled={loading}
       />
       <label htmlFor="file-upload">
-        <img
+        {/* <img
           src={profile}
           alt="Profile"
           className="w-full bg-white h-full object-cover"
-        />
+        /> */}
+        <BiUserCircle className="w-full h-full object-cover" />
       </label>
     </div>
   </div>
