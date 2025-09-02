@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 // import GenerateHeaders from "../../utils/Header";
 import { MdLogout } from "react-icons/md";
-import { FaArrowDown, FaArrowDown91, FaKey, FaUser } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa6";
 import { BiArrowBack, BiUserCircle } from "react-icons/bi";
-import profile from "/assets/Images/user.svg";
+
 import { IoIosArrowDown } from "react-icons/io";
 
 const TopMenuNav = ({ TitleHeader }) => {
@@ -57,7 +57,6 @@ const TopMenuNav = ({ TitleHeader }) => {
             </div>
             <div className="flex  gap-[7px] lg:gap-[11px] items-center">
               <ProfileImage
-                profilePhoto={profile}
                 // handleImageChange={handleImageChange}
                 loading={loading}
               />
@@ -93,11 +92,6 @@ const ProfileImage = ({ loading }) => (
         disabled={loading}
       />
       <label htmlFor="file-upload">
-        {/* <img
-          src={profile}
-          alt="Profile"
-          className="w-full bg-white h-full object-cover"
-        /> */}
         <BiUserCircle className="w-full h-full object-cover" />
       </label>
     </div>
