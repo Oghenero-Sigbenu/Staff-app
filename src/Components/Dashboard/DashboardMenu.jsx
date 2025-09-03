@@ -34,18 +34,18 @@ const DashboardMenu = ({ pathname }) => {
   const user = {};
 
   const privateRoute = [
-    {
-      path: "/dashboard/home",
-      title: "Home",
-      sub: false,
-      icon: <RiHome6Line className="" />,
-    },
-    {
-      title: "Hotel Management",
-      sub: false,
-      path: "/dashboard/hotels/view",
-      icon: <FiHome className="" />,
-    },
+    // {
+    //   path: "/dashboard/home",
+    //   title: "Home",
+    //   sub: false,
+    //   icon: <RiHome6Line className="" />,
+    // },
+    // {
+    //   title: "Hotel Management",
+    //   sub: false,
+    //   path: "/dashboard/hotels/view",
+    //   icon: <FiHome className="" />,
+    // },
     {
       title: "Flight Management",
       path: "/dashboard/flights/view",
@@ -53,26 +53,26 @@ const DashboardMenu = ({ pathname }) => {
       sub: false,
       icon: <FiShoppingCart className="" />,
     },
-    {
-      title: "Customer Management",
-      path: "/dashboard/orders/view",
-      sub: false,
-      icon: <FiShoppingCart className="" />,
-    },
-    {
-      title: "Tour Management",
+    // {
+    //   title: "Customer Management",
+    //   path: "/dashboard/orders/view",
+    //   sub: false,
+    //   icon: <FiShoppingCart className="" />,
+    // },
+    // {
+    //   title: "Tour Management",
 
-      path: "/dashboard/packages/view",
-      sub: false,
-      icon: <FiShoppingCart className="" />,
-    },
-    {
-      title: "Transfer Management",
+    //   path: "/dashboard/packages/view",
+    //   sub: false,
+    //   icon: <FiShoppingCart className="" />,
+    // },
+    // {
+    //   title: "Transfer Management",
 
-      path: "/dashboard/transfers/view",
-      sub: false,
-      icon: <FiShoppingCart className="" />,
-    },
+    //   path: "/dashboard/transfers/view",
+    //   sub: false,
+    //   icon: <FiShoppingCart className="" />,
+    // },
   ];
   return (
     <>
@@ -149,7 +149,7 @@ const DashboardMenu = ({ pathname }) => {
           </div>
           <button
             onClick={handleLogout}
-            className="bg-[red] ml-[3rem] mt-[3rem] text-white px-[1rem] md:px-[2rem] py-[.5rem] rounded-[5px]"
+            className="bg-[red] ml-[3rem] mt-[28rem] text-white px-[1rem] md:px-[2rem] py-[.5rem] rounded-[5px]"
           >
             Logout
           </button>
