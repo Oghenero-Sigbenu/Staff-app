@@ -206,7 +206,7 @@ export default function Flight() {
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="w-12 px-6 py-3">
+                    {/* <th className="w-12 px-6 py-3">
                       <input
                         type="checkbox"
                         // checked={
@@ -216,13 +216,13 @@ export default function Flight() {
                         // onChange={handleSelectAll}
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
-                    </th>
+                    </th> */}
                     <th
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700"
                       // onClick={() => handleSort("name")}
                     >
                       <div className="flex items-center gap-2">
-                        User Details
+                        Flight Details
                         <IoMdArrowDown
                           size={14}
                           className={`transform transition-transform ${
@@ -290,7 +290,7 @@ export default function Flight() {
                     currentFlightData?.map((flight) => (
                       <React.Fragment key={flight?.id}>
                         <tr className="hover:bg-gray-50 transition-colors">
-                          <td className="px-6 py-4">
+                          {/* <td className="px-6 py-4">
                             <div className="flex flex-col">
                               <div className="text-sm font-medium text-gray-900">
                                 {flight?.description}
@@ -302,7 +302,7 @@ export default function Flight() {
                                 Type: {flight?.trip_type.replace("_", " ")}
                               </div>
                             </div>
-                          </td>
+                          </td> */}
 
                           <td className="px-6 py-4">
                             <div className="flex items-center space-x-2">
@@ -395,46 +395,51 @@ export default function Flight() {
                                     Flight Data Details
                                   </h4>
                                   <div className="space-y-2 text-sm">
-                                    <div>
-                                      <span className="font-medium">
+                                    {flight?.data?.data?.associatedRecords?.map(
+                                      (item) => (
+                                        <div className="mt-2">
+                                          <div className="flex">
+                                            <h4 className="font-medium">
+                                              PNR:
+                                            </h4>{" "}
+                                            <span className="ml-2">
+                                              {item?.reference}
+                                            </span>
+                                          </div>
+                                        </div>
+                                      )
+                                    )}{" "}
+                                    <div className="flex">
+                                      <h4 className="font-medium">
                                         Data Type:
-                                      </span>{" "}
-                                      {flight.data.type}
+                                      </h4>{" "}
+                                      {flight.data?.data?.type}
                                     </div>
-                                    <div>
-                                      <span className="font-medium">
-                                        Data ID:
-                                      </span>{" "}
-                                      {flight?.data?.id}
+                                    <div className="flex">
+                                      <h4 className="font-medium mr-2">ID:</h4>{" "}
+                                      {flight?.data?.data?.id}
                                     </div>
-                                    <div>
-                                      <span className="font-medium">
-                                        Queuing Office:
-                                      </span>{" "}
-                                      {flight.data.queuingOfficeId}
-                                    </div>
-                                    <div>
-                                      <span className="font-medium">
+                                    <div className="flex">
+                                      <h4 className="font-medium mr-1 ">
                                         User ID:
-                                      </span>{" "}
+                                      </h4>{" "}
                                       {flight.userID}
                                     </div>
-                                    <div>
-                                      <span className="font-medium">
-                                        Associated Records:
-                                      </span>{" "}
-                                      {flight?.data?.associatedRecords?.length}{" "}
-                                      record(s)
+                                    <div className="flex mr-1">
+                                      <h4 className="font-medium mr-1">
+                                        Booking Code:
+                                      </h4>{" "}
+                                      {flight?.bookingCode}
                                     </div>
-                                    <div>
-                                      <span className="font-medium">
-                                        Flight Offers:
-                                      </span>{" "}
-                                      {flight?.data?.flightOffers?.length}{" "}
-                                      offer(s)
+                                    <div className="flex">
+                                      <h4 className="font-medium mr-1">
+                                        Flight type:
+                                      </h4>{" "}
+                                      {flight?.trip_type}
                                     </div>
                                   </div>
                                 </div>
+
                                 <div className="bg-white rounded-lg p-4 border border-gray-200">
                                   <h4 className="text-lg font-semibold text-gray-800 mb-3">
                                     Contact Details

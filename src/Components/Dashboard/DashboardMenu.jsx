@@ -149,7 +149,7 @@ const DashboardMenu = ({ pathname }) => {
           </div>
           <button
             onClick={handleLogout}
-            className="bg-[red] ml-[3rem] mt-[28rem] text-white px-[1rem] md:px-[2rem] py-[.5rem] rounded-[5px]"
+            className="bg-[red] bottom-[8rem]  w-[80%] absolute ml-[2rem] mt-[rem] text-white px-[1rem] md:px-[2rem] py-[.5rem] rounded-[5px]"
           >
             Logout
           </button>

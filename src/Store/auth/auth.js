@@ -21,7 +21,7 @@ export const login = createAsyncThunk(
         config
       );
 
-      navigate("/dashboard/home");
+      navigate("/dashboard/flights/view");
       // const data = await response.json();
 
       toast.success("Login Successful");
